@@ -1,0 +1,20 @@
+    if request.method == 'POST':
+        name = request.form['name']
+        institution = request.form['institution']
+        email = request.form['email']
+        password = request.form['password']
+
+        # Create Cursor
+        cur.execute("INSERT INTO user(fullname, institution, email, password) VALUES(%s, %s, %s, %s)",
+                    (name, institution, email, password))
+
+        # Commit cursor
+        db.commit()
+
+        # Close Connection
+        cur.close()
+
+        flash('You are now registered and can login', 'success')
+
+        return redirect(url_for('login.html'))
+    return render_template('signup.html')
